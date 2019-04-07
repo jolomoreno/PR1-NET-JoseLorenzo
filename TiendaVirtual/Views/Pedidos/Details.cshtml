@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNet.Identity
+@model TiendaVirtual.Pedidos
+@{
+    ViewBag.Title = "Pedidos";
+}
+<h2>Detalles del pedido</h2>
+<div class="container">
+    <hr />
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cliente)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Direccion)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Fecha)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Total)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Total) €
+            </dd>
+        </dl>
+    </div>
+</div>
+<button class="btn btn-primary">
+    @Html.ActionLink("Volver", "Index")
+</button>
+@if (User.Identity.GetUserName() == "admin@admin.es")
+{
+    <button class="btn btn-warning">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id })
+    </button>
+}

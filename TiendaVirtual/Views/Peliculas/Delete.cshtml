@@ -1,0 +1,58 @@
+﻿@model TiendaVirtual.Peliculas
+
+@{
+    ViewBag.Title = "Peliculas";
+}
+
+<h2>Delete</h2>
+
+<h3>Deseas realmente borrar esta película?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sinopsis)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sinopsis)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Caratula)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Caratula)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div>
+    }
+</div>
+    <button class="btn btn-primary">
+        @Html.ActionLink("Volver", "Index")
+    </button>
+</div>

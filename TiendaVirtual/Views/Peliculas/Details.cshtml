@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Identity
+@model TiendaVirtual.Peliculas
+@{
+    ViewBag.Title = "Peliculas";
+}
+<h2>Detalles</h2>
+<div class="thumbnail">
+    <img class="rounded-circle center-block" src="@Url.Content(Model.Caratula)" alt="Generic placeholder image" height="300" width="240">
+    <div class="caption">
+        <h2 class="text-center">@Html.DisplayFor(model => model.Nombre)</h2>
+        <p class="text-center">
+            @Html.DisplayFor(model => model.Sinopsis)
+        </p>
+        <p class="text-center"> 
+        @Html.DisplayFor(model => model.Precio) €
+        </p>
+    </div>
+</div>
+
+<button class="btn btn-primary">
+    @Html.ActionLink("Volver", "Index")
+</button>
+@if (User.Identity.GetUserName() == "admin@admin.es")
+{
+    <button class="btn btn-warning">
+        @Html.ActionLink("Editar", "Edit", new { id = Model.Id })
+    </button>
+}

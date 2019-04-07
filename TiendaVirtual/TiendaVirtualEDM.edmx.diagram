@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1bd8d8d5d6f949b9b075d6ac359aa0c1" Name="Diagram1">
+        <EntityTypeShape EntityType="TiendaVirtualDBModel.Pedidos" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TiendaVirtualDBModel.Peliculas" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="TiendaVirtualDBModel.PedidoPelicula" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

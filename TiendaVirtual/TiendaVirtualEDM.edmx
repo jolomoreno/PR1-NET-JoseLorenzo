@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TiendaVirtualDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PedidoPelicula">
+          <Key>
+            <PropertyRef Name="Pedidos_Id" />
+            <PropertyRef Name="Peliculas_Id" />
+          </Key>
+          <Property Name="Pedidos_Id" Type="int" Nullable="false" />
+          <Property Name="Peliculas_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cliente" Type="varchar" MaxLength="50" />
+          <Property Name="Direccion" Type="varchar" MaxLength="200" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Total" Type="float" />
+        </EntityType>
+        <EntityType Name="Peliculas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sinopsis" Type="varchar" MaxLength="200" />
+          <Property Name="Precio" Type="float" />
+          <Property Name="Stock" Type="smallint" />
+          <Property Name="Caratula" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_PedidoPelicula_Pedidos">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="1" />
+          <End Role="PedidoPelicula" Type="Self.PedidoPelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedidos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoPelicula">
+              <PropertyRef Name="Pedidos_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoPelicula_Peliculas">
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+          <End Role="PedidoPelicula" Type="Self.PedidoPelicula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peliculas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PedidoPelicula">
+              <PropertyRef Name="Peliculas_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaVirtualDBModelStoreContainer">
+          <EntitySet Name="PedidoPelicula" EntityType="Self.PedidoPelicula" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Peliculas" EntityType="Self.Peliculas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PedidoPelicula_Pedidos" Association="Self.FK_PedidoPelicula_Pedidos">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="PedidoPelicula" EntitySet="PedidoPelicula" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoPelicula_Peliculas" Association="Self.FK_PedidoPelicula_Peliculas">
+            <End Role="Peliculas" EntitySet="Peliculas" />
+            <End Role="PedidoPelicula" EntitySet="PedidoPelicula" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaVirtualDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pedidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Total" Type="Double" />
+          <NavigationProperty Name="Peliculas" Relationship="Self.PedidoPelicula" FromRole="Pedidos" ToRole="Peliculas" />
+        </EntityType>
+        <EntityType Name="Peliculas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sinopsis" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Double" />
+          <Property Name="Stock" Type="Int16" />
+          <Property Name="Caratula" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pedidos" Relationship="Self.PedidoPelicula" FromRole="Peliculas" ToRole="Pedidos" />
+        </EntityType>
+        <Association Name="PedidoPelicula">
+          <End Role="Pedidos" Type="Self.Pedidos" Multiplicity="*" />
+          <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="TiendaVirtualDBE" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pedidos" EntityType="Self.Pedidos" />
+          <EntitySet Name="Peliculas" EntityType="Self.Peliculas" />
+          <AssociationSet Name="PedidoPelicula" Association="Self.PedidoPelicula">
+            <End Role="Pedidos" EntitySet="Pedidos" />
+            <End Role="Peliculas" EntitySet="Peliculas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiendaVirtualDBModelStoreContainer" CdmEntityContainer="TiendaVirtualDBE">
+          <EntitySetMapping Name="Pedidos">
+            <EntityTypeMapping TypeName="TiendaVirtualDBModel.Pedidos">
+              <MappingFragment StoreEntitySet="Pedidos">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Peliculas">
+            <EntityTypeMapping TypeName="TiendaVirtualDBModel.Peliculas">
+              <MappingFragment StoreEntitySet="Peliculas">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Sinopsis" ColumnName="Sinopsis" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Caratula" ColumnName="Caratula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PedidoPelicula" TypeName="TiendaVirtualDBModel.PedidoPelicula" StoreEntitySet="PedidoPelicula">
+            <EndProperty Name="Pedidos">
+              <ScalarProperty Name="Id" ColumnName="Pedidos_Id" />
+            </EndProperty>
+            <EndProperty Name="Peliculas">
+              <ScalarProperty Name="Id" ColumnName="Peliculas_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

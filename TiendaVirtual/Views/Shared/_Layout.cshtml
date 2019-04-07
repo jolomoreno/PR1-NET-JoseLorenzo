@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DotFlix</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("DotFlix", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="nav-item @if (ViewBag.Title == "Peliculas") { var active = "active"; @active}">
+                            @Html.ActionLink("Peliculas", "Index", "Peliculas")
+                        </li>
+                        <li class="nav-item @if (ViewBag.Title == "Pedidos") { var active = "active"; @active}">
+                            @Html.ActionLink("Pedidos", "Index", "Pedidos")
+                        </li>
+                        <li class="nav-item @if (ViewBag.Title == "Carrito") { var active = "active"; @active}">
+                            <a href="@Url.Action("Index", "Carrito")" class="nav-link">
+                                <i class="glyphicon glyphicon-shopping-cart icon-white"></i>
+                                @{ List<TiendaVirtual.Peliculas> peliculas = (List<TiendaVirtual.Peliculas>)HttpContext.Current.Session["KEY"];}
+                                @if (peliculas != null)
+                                {
+                                <span class="badge badge-light">@peliculas.Count()</span>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Dotflix - Powered by .NET - <a href="mailto:jl.moreno@alumnos.upm.es?Subject=Consulta%20DotFlix" target="_top">jl.moreno@alumnos.upm.es</a></p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

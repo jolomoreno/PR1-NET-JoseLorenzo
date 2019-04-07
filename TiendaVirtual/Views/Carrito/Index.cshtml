@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TiendaVirtual.Peliculas>
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Carrito";
+}
+<h2>Carrito</h2>
+@if (Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <p class="">@Html.DisplayFor(modelItem => item.Nombre)</p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio) €
+                </td>
+                <td>
+                    <button class="btn btn-danger">
+                        @Html.ActionLink("Quitar", "Delete", new { id = item.Id })
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+    <form method="post" action="@Url.Action("Buy")" class="form-group">
+        <div class="row">
+            <div>
+                <div class="col-md-3">
+                    <h3>
+                        Total
+                    </h3>
+                    <h4 class="">
+                        @Model.Sum(pelicula => pelicula.Precio) €
+                    </h4>
+                </div>
+                <div class="col-md-6">
+                    <h4>Introduzca la dirección donde se enviará tu pedido</h4>
+                    <input type="text" name="dir" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Comprar</button>
+        </div>
+    </form>
+}
+else
+{
+    <h3 class="text-center"> Tu carro de la compra está vacío</h3>
+}
+
